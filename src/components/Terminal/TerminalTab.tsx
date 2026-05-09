@@ -38,6 +38,17 @@ export function TerminalTab({
     }
   }, [isRenaming])
 
+  useEffect(() => {
+    const handleGlobalRename = (e: Event) => {
+      const customEvent = e as CustomEvent
+      if (customEvent.detail?.tabId === tab.id) {
+        setIsRenaming(true)
+      }
+    }
+    window.addEventListener('termitur-rename-tab', handleGlobalRename)
+    return () => window.removeEventListener('termitur-rename-tab', handleGlobalRename)
+  }, [tab.id])
+
   const handleDoubleClick = () => setIsRenaming(true)
 
   const handleSubmitRename = () => {

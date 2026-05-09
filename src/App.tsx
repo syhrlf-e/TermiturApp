@@ -4,11 +4,14 @@ import { TerminalArea } from './components/Terminal/TerminalArea'
 import { Titlebar } from './components/Titlebar/Titlebar'
 import { OnboardingModal } from './components/Onboarding/OnboardingModal'
 import { useTauri } from './hooks/useTauri'
+import { useKeybinding } from './hooks/useKeybinding'
 
 function App() {
   const [isFirstRunState, setIsFirstRunState] = useState<boolean>(false)
   const [loading, setLoading] = useState(true)
   const { isFirstRun } = useTauri()
+
+  useKeybinding()
 
   useEffect(() => {
     const checkFirstRun = async () => {
