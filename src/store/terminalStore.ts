@@ -12,6 +12,7 @@ interface TerminalStore {
   removeTab: (projectId: string, tabId: string) => void
   setActiveTab: (projectId: string, tabId: string) => void
   renameTab: (projectId: string, tabId: string, newName: string) => void
+  reorderTabs: (projectId: string, from: number, to: number) => void
 }
 
 export const useTerminalStore = create<TerminalStore>((set) => ({
@@ -67,6 +68,21 @@ export const useTerminalStore = create<TerminalStore>((set) => ({
       tabs: {
         ...state.tabs,
         [projectId]: projectTabs.map(t => t.id === tabId ? { ...t, name: newName } : t)
+      }
+    }
+  }),
+
+  reorderTabs: (projectId, from, to) => set((state) => {
+    const projectTabs = [...(state.tabs[projectId] || [])]
+    if (from < 0 || from >= projectTabs.length || to < 0 || to >= projectTabs.length) return state
+    
+    const [movedTab] = projectTabs.splice(from, 1)
+    projectTabs.splice(to, 0, movedTab)
+    
+    return {
+      tabs: {
+        ...state.tabs,
+        [projectId]: projectTabs
       }
     }
   })
