@@ -124,7 +124,7 @@ pub fn run() {
             let app_handle = app.handle().clone();
             
             // Background task for PTY output events
-            tokio::spawn(async move {
+            tauri::async_runtime::spawn(async move {
                 while let Some((session_id, data)) = rx.recv().await {
                     #[derive(serde::Serialize, Clone)]
                     struct PtyOutputPayload {
