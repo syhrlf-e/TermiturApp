@@ -1,0 +1,26 @@
+[package]
+name = "termitur"
+version = "2.0.0"
+description = "Your terminal, now structured."
+authors = ["Termitur"]
+license = ""
+repository = ""
+edition = "2021"
+rust-version = "1.77.2"
+
+[build-dependencies]
+tauri-build = { version = "2" }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+portable-pty = "0.8"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "0.8"
+dirs = "5"
+tracing = "0.1"
+tracing-appender = "0.2"
+tracing-subscriber = "0.3"
+tokio = { version = "1", features = ["full"] }
+uuid = { version = "1", features = ["v4", "serde"] }
+thiserror = "1"
