@@ -4,6 +4,7 @@ import { ProjectItem } from './ProjectItem'
 import { useProjectStore } from '../../store/projectStore'
 import { useTauri } from '../../hooks/useTauri'
 import type { ProjectState } from '../../types'
+import { SettingsModal } from '../Onboarding/SettingsModal'
 
 export function Sidebar() {
   const { projects, activeProjectId, setProjects, setActiveProject, removeProject } = useProjectStore()
@@ -111,10 +112,19 @@ export function Sidebar() {
     return isDuplicate ? project.path : undefined
   }
 
+  const [showSettings, setShowSettings] = useState(false)
+
   return (
     <div className="w-[240px] bg-neutral-900 border-r border-neutral-800 flex flex-col h-full">
-      <div className="p-4 border-b border-neutral-800 flex-shrink-0">
+      <div className="p-4 border-b border-neutral-800 flex-shrink-0 flex justify-between items-center">
         <h2 className="text-sm font-bold text-neutral-400 uppercase tracking-wider">Projects</h2>
+        <button 
+          onClick={() => setShowSettings(true)}
+          className="text-neutral-500 hover:text-white transition-colors"
+          title="Settings"
+        >
+          ⚙
+        </button>
       </div>
       
       <div className="flex-1 overflow-y-auto p-2 space-y-1">
@@ -147,6 +157,16 @@ export function Sidebar() {
           <span className="text-lg leading-none mb-0.5">+</span> New Project
         </button>
       </div>
+
+      {showSettings && (
+        <SettingsModal 
+          onClose={() => setShowSettings(false)}
+          onSaved={() => {
+            // Kita bisa memicu reload PTY font-size dsb, tapi untuk saat ini
+            // xterm pane akan memanggil getConfig() tiap kali terminal baru dibuat.
+          }} 
+        />
+      )}
     </div>
   )
 }
