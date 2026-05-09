@@ -1,0 +1,17 @@
+[general]
+default_shell = "bash"
+font_size = 14
+scrollback_lines = 1000
+
+[keybindings]
+new_terminal = "Ctrl+N"
+new_project = "Ctrl+Shift+N"
+close_terminal = "Ctrl+W"
+next_terminal = "Ctrl+Tab"
+prev_terminal = "Ctrl+Shift+Tab"
+exit = "Ctrl+E"
+rename = "Ctrl+R"
+add_group = "Ctrl+G"
+copy = "Ctrl+Shift+C"
+
+[projects]
